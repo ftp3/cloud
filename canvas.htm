@@ -1,0 +1,158 @@
+<html>
+<head>
+<style>
+a:link {color: gray;}
+a:visited {color: darkgray;}
+table {counter-reset: rowNumber;font-family: "FreeMono", monospace; }
+table tr {counter-increment: rowNumber;}
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;}
+</style>
+<meta name="KeyWords" content="javascript how to code tutorial canvas drawing programming learn">
+<meta name="Description" content="JavaScript Canvas programming tutorial">
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<meta property="og:image" content="https://i.imgur.com/n3s9a2X.png" />
+<title>JavaScript Canvas programming tutorial</title>
+</head>
+<body>
+<font face="Arial,Helvetica,Sans-Serif">
+<div style="position:relative; width:80%; left:10%;">
+<center>
+<h1>JavaScript Canvas programming tutorial</h1>
+</center>
+
+The Canvas is an element which allows you to create awesome graphics in JavaScript.<br>
+Here are some of the great stuff you can build:<br>
+- Games:<br>
+animated characters<br>
+moving objects: vehicles, bullets<br>
+backgrounds<br>
+scrolling in various directions<br>
+- Drawing<br>
+geometrical shapes: rectangles, circles, lines, curves etc.<br>
+various line widths, fill patterns, colors<br>
+transparency<br>
+- Bitmap graphical effects<br>
+fade in/fade out<br>
+zoom in/out<br>
+blur<br>
+image deformation<br>
+<br>
+Canvas is a great place to start learning JavaScript. It is easy to understand because you see the results right away. Many people find it more motivating to be able to draw an image than for example write a text or see a result of a mathematical equation. After all, a picture is worth a thousand words.<br>
+<br>
+If you already have a basic knowledge of the Canvas, feel free to jump right into the exercises, otherwise keep reading the basics below.<br>
+<br>
+Ok, so you decided to learn the fundamentals. I'll assume you have zero JavaScript knowledge and you'll still be able to start using the Canvas in the next couple of minutes.<br>
+Let's look at this template that we'll use:<br><br>
+<table cellspacing='0'; style="display: inline-block; border: 1px solid; ">
+<tr><td bgcolor='#f0f0f0'>&lt;<font color='brown'>html</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&lt;<font color='brown'>canvas</font>&nbsp;<font color='brown'>id</font>='<font color='brown'>myCanvas</font>'&nbsp;<font color='brown'>width</font>='<font color='green'>400</font>'&nbsp;<font color='brown'>height</font>='<font color='green'>300</font>'&nbsp;<font color='brown'>style</font>='<font color='brown'>background</font>-<font color='brown'>color</font>:<font color='brown'>gray</font>'&gt;&lt;/<font color='brown'>canvas</font>&gt;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&lt;<font color='brown'>script</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'><font color='blue'>let</font>&nbsp;<font color='brown'>canvas</font>&nbsp;=&nbsp;<font color='blue'>document</font>.<font color='brown'>getElementById</font>('<font color='brown'>myCanvas</font>');</td></tr>
+<tr><td bgcolor='#f0f0f0'><font color='blue'>let</font>&nbsp;<font color='brown'>context</font>&nbsp;=&nbsp;<font color='brown'>canvas</font>.<font color='brown'>getContext</font>('2d');</td></tr>
+<tr><td bgcolor='#e0e0e0'>&nbsp;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&nbsp;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&nbsp;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&lt;/<font color='brown'>script</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&lt;/<font color='brown'>html</font>&gt;</td></tr>
+</table><br><br>
+It is an HTML file that includes JavaScript. All it does is creates an HTML page with only a Canvas on it. HTML is the language used to create web pages. You can copy the code above, paste into Notepad, save it on your hard drive and open it with any web browser (the last example on this page lets you experiment with the code without having to save the file - you can edit and execute the code within this page). Unfortunately, it won't be very exciting: it's just a blank page we an empty gray canvas on it, since we didn't draw anything on it:<br><br>
+<img src='1.png'>
+<br><br>
+I'll explain the code line by line, but you really don't have to understand the whole thing - you will learn the details later, for now just focus on the part below where you actually draw things on the Canvas. The code in the template is necessary for technical reasons and may seem complicated to beginners - don't worry: the actual drawing is much easier.<br>
+[Line 1] tells the browser that this file is an HTML document.<br>
+[2] Adds our Canvas to the HTML page. It sets the dimensions and the background color to gray, so that it contrasts with the rest of this page.<br>
+[3] Opens the JavaScript section<br>
+[4] stores the reference to the HTML Canvas object in the JavaScript 'myCanvas' variable. This allows JavaScript to manipulate the Canvas.<br>
+[5] stores the reference to the Context of our Canvas. To oversimplify things a little, the Context is how you can draw on the Canvas. Context provides objects, methods, and properties to draw and manipulate graphics on a canvas drawing surface.<br>
+Again, this may sound a little technical, but all you have to understand right now is that we have our Context and we won't hesitate to use it.<br>
+[6-8] empty lines where we'll add the main program (not part of the template) later<br>
+[9] closes the JavaScript section (we're back in the main HTML document)<br>
+[10] closes the HTML document.<br>
+<br>
+Enough of the boring stuff. Now we have our Context and that's what we really need to draw.<br>
+We'll draw our first shape by adding only one line of code:<br><br>
+<table cellspacing='0'; style="display: inline-block; border: 1px solid; ">
+<tr><td bgcolor='#f0f0f0'>&lt;<font color='brown'>html</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&lt;<font color='brown'>canvas</font>&nbsp;<font color='brown'>id</font>='<font color='brown'>myCanvas</font>'&nbsp;<font color='brown'>width</font>='<font color='green'>400</font>'&nbsp;<font color='brown'>height</font>='<font color='green'>300</font>'&nbsp;<font color='brown'>style</font>='<font color='brown'>background</font>-<font color='brown'>color</font>:<font color='brown'>gray</font>'&gt;&lt;/<font color='brown'>canvas</font>&gt;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&lt;<font color='brown'>script</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'><font color='blue'>let</font>&nbsp;<font color='brown'>canvas</font>&nbsp;=&nbsp;<font color='blue'>document</font>.<font color='brown'>getElementById</font>('<font color='brown'>myCanvas</font>');</td></tr>
+<tr><td bgcolor='#f0f0f0'><font color='blue'>let</font>&nbsp;<font color='brown'>context</font>&nbsp;=&nbsp;<font color='brown'>canvas</font>.<font color='brown'>getContext</font>('2d');</td></tr>
+<tr><td bgcolor='#e0e0e0'>&nbsp;</td></tr>
+<tr><td bgcolor='#f0f0f0'><font color='brown'>context</font>.<font color='brown'>fillRect</font>(<font color='green'>100</font>,&nbsp;<font color='green'>50</font>,&nbsp;<font color='green'>80</font>,&nbsp;<font color='green'>120</font>);</td></tr>
+<tr><td bgcolor='#e0e0e0'>&nbsp;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&lt;/<font color='brown'>script</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&lt;/<font color='brown'>html</font>&gt;</td></tr>
+</table><br><br>
+That's how easy it really is!<br><br>
+<img src='2.png'>
+<br><br>
+We only added line 7. That's how all the examples will work - we will only modify the part of the program the actually draws on the Canvas, you won't need to modify (or fully understand the template).<br>
+This line created a black rectangle on the Canvas. Noticed how the code references the Context? Technically, fillRect is a method of the Context interface, but if it sounds too nerdy, you can just remember that we will execute instructions in this format: <pre>context.action(parameters)</pre> where 'context' is the variable we defined (this word will never be changed in our examples) and 'action' is what we want to draw.<br>
+Here's what the parameters mean for fillRect: (x, y, width, height). The first parameter is the x (horizontal) coordinate of the upper left corner of our rectangle.<br>
+The second parameter is the y (vertical coordinate). The width and height are self-explanatory.<br>
+Coordinates are the only math subject you need to know to draw on the Canvas. There is one important difference between what you learned sometime around the 4th grade - on the Canvas, the Y-axis is pointing down. What we learned in the elementary school is the Cartesian coordinate system, where the Y axis is pointing up, but with computer graphics the reverse setup is much more useful.<br>
+In a world where people use very different screen resolutions, determining the coordinates of the top of the screen would require some calculations if we started in the bottom-left corner (like the Cartesian system does).<br>
+Since the top of the document is usually most important (that's where the text or images start - and if there isn't enough space on the screen, you just have to scroll to the bottom), in many computer applications the origin [the point with coordinates (0,0)] is the top-left corner. You can still calculate the coordinates of the bottom of the screen if you really need to.<br>
+<br>
+Try experimenting with these values to get a feel of how it works.<br>
+Now one more line to change the color of the rectangle:<br><br>
+<table cellspacing='0'; style="display: inline-block; border: 1px solid; ">
+<tr><td bgcolor='#f0f0f0'>&lt;<font color='brown'>html</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&lt;<font color='brown'>canvas</font>&nbsp;<font color='brown'>id</font>='<font color='brown'>myCanvas</font>'&nbsp;<font color='brown'>width</font>='<font color='green'>400</font>'&nbsp;<font color='brown'>height</font>='<font color='green'>300</font>'&nbsp;<font color='brown'>style</font>='<font color='brown'>background</font>-<font color='brown'>color</font>:<font color='brown'>gray</font>'&gt;&lt;/<font color='brown'>canvas</font>&gt;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&lt;<font color='brown'>script</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'><font color='blue'>let</font>&nbsp;<font color='brown'>canvas</font>&nbsp;=&nbsp;<font color='blue'>document</font>.<font color='brown'>getElementById</font>('<font color='brown'>myCanvas</font>');</td></tr>
+<tr><td bgcolor='#f0f0f0'><font color='blue'>let</font>&nbsp;<font color='brown'>context</font>&nbsp;=&nbsp;<font color='brown'>canvas</font>.<font color='brown'>getContext</font>('2d');</td></tr>
+<tr><td bgcolor='#e0e0e0'><font color='brown'>context</font>.<font color='brown'>fillStyle</font>&nbsp;=&nbsp;'<font color='brown'>red</font>';</td></tr>
+<tr><td bgcolor='#f0f0f0'><font color='brown'>context</font>.<font color='brown'>fillRect</font>(<font color='green'>100</font>,&nbsp;<font color='green'>50</font>,&nbsp;<font color='green'>80</font>,&nbsp;<font color='green'>120</font>);</td></tr>
+<tr><td bgcolor='#e0e0e0'>&nbsp;</td></tr>
+<tr><td bgcolor='#f0f0f0'>&lt;/<font color='brown'>script</font>&gt;</td></tr>
+<tr><td bgcolor='#e0e0e0'>&lt;/<font color='brown'>html</font>&gt;</td></tr>
+</table><br><br>
+Line 6 instructs the Canvas to set the fill color to red. This will be in effect for all future shapes until the fillStyle is changed again.<br><br>
+<img src='3.png'>
+<br><br>
+Now one more line to add a line of text - 'Hello World!' at the coordinates (200,150).<br>
+The code in the box below corresponds to lines 6-8 in the examples above (the 'non-template' section). This time you can experiment with it without having to copy-paste to a new file: clicking on the button will execute the code. Now change 'red' to 'blue' and click the button again.<br><br>
+<canvas id='myCanvas' width="400" height="300" style="background-color:gray"></canvas><br><br>
+<textarea cols="80" rows="8" id='code'>
+context.fillStyle = 'red';
+context.fillRect(100, 50, 80, 120);
+context.fillText('Hello World!', 200, 150);
+</textarea>
+<script>
+function klik(){
+let a = document.getElementById('code');
+let instructions = a.value;
+canvas = document.getElementById('myCanvas');
+context = canvas.getContext('2d');
+let f=new Function(instructions);
+return(f());    
+}
+</script>
+<br><br>
+<button onclick='klik()'> Click here to (re)start the code</button>
+<br><br>
+Hopefully the examples so far have been easy. But let's face it - the result is far from exciting - just a boring rectangle and a tiny text.<br>
+But now that you understand the basic principles, it's time to draw something more complicated. I promise it will go much faster from here on:<br>
+<br>
+<br>
+<a href='loop.htm'>The 'for' loop</a><br>
+<a href='line.htm'>Line and path</a><br>
+<a href='circle.htm'>Circle and arc</a><br>
+<a href='yinyang.htm'>Yin Yang</a><br>
+<a href='animation.htm'>Animation</a><br>
+<br>
+<br>
+<a href='domain.htm'>Using a free URL for your website is probably not worth the risk</a>
+<br>
+<br>
+<a href='tilesets.htm'>Free game tile sets</a>
+<br>
+<br>
+
+</div>
+</font>
+</body></html>
